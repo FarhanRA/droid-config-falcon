@@ -1,32 +1,44 @@
-# Feel free to disable non-critical HA parts during devel by commenting out
-# Generated in hadk by executing: cd $ANDROID_ROOT; rpm/helpers/add_new_device.sh
+# Feel free to disable non-critical HA parts during devel by commenting lines out
+# Generated in hadk by executing: rpm/dhd/helpers/add_new_device.sh
 
 Description: Pattern with packages for falcon HW Adaptation
 Name: jolla-hw-adaptation-falcon
 Requires:
 - pattern:jolla-hw-adaptation-hybris
 - pattern:jolla-hw-adaptation-hybris-droid-vibrator
+- pattern:jolla-ui-configuration-falcon
 
 - droid-hal-falcon
-- droid-hal-falcon-sailfish-config
 - droid-hal-falcon-img-boot
-- droid-hal-falcon-pulseaudio-settings
-- droid-hal-falcon-policy-settings
 - droid-hal-falcon-kernel-modules
-- droid-hal-falcon-preinit-plugin
+- droid-config-falcon-sailfish
+- droid-config-falcon-pulseaudio-settings
+- droid-config-falcon-policy-settings
+- droid-config-falcon-preinit-plugin
+- droid-hal-version-falcon
+
+- pulseaudio-modules-droid
 
 # These need to be per-device due to differing backends (fbdev, eglfs, hwc, ..?)
 - qt5-qtwayland-wayland_egl
 - qt5-qpa-hwcomposer-plugin
 - qtscenegraph-adaptation
 
+# GStreamer v0.10 multimedia support is being deprecated
 #- gstreamer0.10-droidcamsrc
 #- gstreamer0.10-omx
 #- gstreamer0.10-droideglsink
 #- nemo-qtmultimedia-plugins-gstvideotexturebackend
 
-# This will do good after sensors start to work:
-#- mce-plugin-libhybris
+# Add GStreamer v1.0 as standard
+- gstreamer1.0
+- gstreamer1.0-plugins-good
+- gstreamer1.0-plugins-base
+- gstreamer1.0-plugins-bad
+- nemo-gstreamer1.0-interfaces
+
+# This is needed for notification LEDs
+- mce-plugin-libhybris
 
 ## USB mode controller
 # Enables mode selector upon plugging USB cable:
@@ -51,6 +63,12 @@ Requires:
 - bluez-configs-sailfish
 # hammerhead, grouper, and maguro use this in scripts, so include for all
 - rfkill
+
+# enable device lock and allow to select untrusted software
+- jolla-devicelock-plugin-encsfa
+
+# jolla settings
+- jolla-settings-layout
 
 Summary: Jolla HW Adaptation falcon
 
